@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills — Edwin Mendoza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="global.css"/>
+  <style>
+    #skills { padding: 140px 56px 100px; }
+
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 48px;
+    }
+    .sk-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px; padding: 36px 28px;
+      position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
+    }
+    .sk-card.v { opacity: 1; transform: translateY(0); }
+    .sk-card:hover { transform: translateY(-6px) !important; border-color: var(--border); }
+
+    .sk-card-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      border-radius: 50%; opacity: 0.5; pointer-events: none;
+    }
+    .sk-ico  { font-size: 1.8rem; margin-bottom: 16px; }
+    .sk-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .sk-list { font-size: 0.82rem; color: rgba(240,236,228,0.55); line-height: 2; }
+
+    @media(max-width:992px) {
+      #skills { padding: 110px 24px 70px; }
+      .sk-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:576px) {
+      .sk-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav">
+  <a href="index.html" class="n-logo"><div class="n-logo-dot"></div>Edwin Mendoza</a>
+  <ul class="n-links">
+    <li><a href="about.html">Perfil</a></li>
+    <li><a href="experiencia.html">Experiencia</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="formacion.html">Formación</a></li>
+    <li><a href="contacto.html" class="n-cta">Contacto</a></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+<div id="mmenu">
+  <a href="about.html"       onclick="closeM()">Perfil</a>
+  <a href="experiencia.html" onclick="closeM()">Experiencia</a>
+  <a href="skills.html"      onclick="closeM()">Skills</a>
+  <a href="proyectos.html"   onclick="closeM()">Proyectos</a>
+  <a href="formacion.html"   onclick="closeM()">Formación</a>
+  <a href="contacto.html"    onclick="closeM()">Contacto</a>
+</div>
+
+<section id="skills">
+  <p class="s-tag reveal">// 03 — Competencias</p>
+  <h2 class="s-title reveal">Stack & <span class="em2">Habilidades</span></h2>
+  <div class="divl reveal"></div>
+
+  <div class="sk-grid">
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(232,184,75,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--gold)"><i class="bi bi-code-slash"></i></div>
+      <div class="sk-name">Backend</div>
+      <div class="sk-list">Java · Spring Boot · Node.js · REST APIs · PostgreSQL · MySQL · Postman</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(62,207,178,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--teal)"><i class="bi bi-layers-half"></i></div>
+      <div class="sk-name">Frontend & UX</div>
+      <div class="sk-list">React · JavaScript · HTML5 · CSS3 · Bootstrap · UX Writing · Diseño de experiencias</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(155,111,255,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--purple)"><i class="bi bi-cpu-fill"></i></div>
+      <div class="sk-name">IA & Automatización</div>
+      <div class="sk-list">ChatGPT · Gemini · Opus Clip · Workflows de IA · Prompt Engineering</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(232,96,60,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--rust)"><i class="bi bi-graph-up-arrow"></i></div>
+      <div class="sk-name">Marketing Digital</div>
+      <div class="sk-list">SEO · Content Strategy · Social Media · Email Marketing · BTL/ATL · Google Analytics</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(232,184,75,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--gold)"><i class="bi bi-pencil-square"></i></div>
+      <div class="sk-name">Contenido Editorial</div>
+      <div class="sk-list">Redacción creativa · Copywriting · Guiones · Periodismo · Reporteo · Storytelling</div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-card-glow" style="background:radial-gradient(circle,rgba(62,207,178,0.2),transparent)"></div>
+      <div class="sk-ico" style="color:var(--teal)"><i class="bi bi-kanban-fill"></i></div>
+      <div class="sk-name">Metodologías & Tools</div>
+      <div class="sk-list">Scrum · Jira · Git / GitHub · VS Code · IntelliJ · WordPress · Canva · Photoshop</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Edwin Mendoza</div>
+  <p class="f-copy">© 2026 · Hecho con estrategia & código</p>
+  <div class="f-soc">
+    <a href="mailto:alejandro.trabajo@live.com.mx"><i class="bi bi-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/Edwin-Mendoza" target="_blank"><i class="bi bi-github"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="global.js"></script>
+</body>
+</html>

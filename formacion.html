@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formación — Edwin Mendoza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="global.css"/>
+  <style>
+    #edu { padding: 140px 56px 100px; }
+
+    .edu-g {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 48px;
+    }
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px; padding: 32px 24px;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s, transform 0.6s, border-color 0.25s;
+    }
+    .edu-card.v { opacity: 1; transform: translateY(0); }
+    .edu-card:hover { border-color: var(--border); transform: translateY(-4px) !important; }
+
+    .edu-ico { font-size: 1.8rem; margin-bottom: 14px; }
+    .edu-yr  { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--gold); letter-spacing: 0.12em; margin-bottom: 8px; }
+    .edu-deg { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; margin-bottom: 6px; }
+    .edu-sch { font-size: 0.78rem; color: var(--mid); }
+
+    .edu-badge {
+      display: inline-block; margin-top: 12px;
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      padding: 3px 10px; border-radius: 20px; letter-spacing: 0.08em;
+    }
+    .edu-badge.active { background: rgba(62,207,178,0.1); color: var(--teal);  border: 1px solid rgba(62,207,178,0.25); }
+    .edu-badge.done   { background: rgba(232,184,75,0.1); color: var(--gold);  border: 1px solid rgba(232,184,75,0.2); }
+
+    @media(max-width:992px) {
+      #edu { padding: 110px 24px 70px; }
+      .edu-g { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav">
+  <a href="index.html" class="n-logo"><div class="n-logo-dot"></div>Edwin Mendoza</a>
+  <ul class="n-links">
+    <li><a href="about.html">Perfil</a></li>
+    <li><a href="experiencia.html">Experiencia</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="formacion.html">Formación</a></li>
+    <li><a href="contacto.html" class="n-cta">Contacto</a></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+<div id="mmenu">
+  <a href="about.html"       onclick="closeM()">Perfil</a>
+  <a href="experiencia.html" onclick="closeM()">Experiencia</a>
+  <a href="skills.html"      onclick="closeM()">Skills</a>
+  <a href="proyectos.html"   onclick="closeM()">Proyectos</a>
+  <a href="formacion.html"   onclick="closeM()">Formación</a>
+  <a href="contacto.html"    onclick="closeM()">Contacto</a>
+</div>
+
+<section id="edu">
+  <p class="s-tag reveal">// 05 — Formación</p>
+  <h2 class="s-title reveal">Educación & <span class="em">Certificaciones</span></h2>
+  <div class="divl reveal"></div>
+
+  <div class="edu-g">
+    <div class="edu-card">
+      <div class="edu-ico">🎓</div>
+      <div class="edu-yr">2012 — 2016</div>
+      <div class="edu-deg">Lic. en Ciencias de la Comunicación</div>
+      <div class="edu-sch">Facultad de Ciencias Políticas y Sociales · UNAM</div>
+      <span class="edu-badge done">Titulado</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-ico">💻</div>
+      <div class="edu-yr">Ene. — Jun. 2024</div>
+      <div class="edu-deg">Bootcamp Desarrollador Back End</div>
+      <div class="edu-sch">Alura LATAM — Oracle Next Education</div>
+      <span class="edu-badge done">Completado</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-ico">⚡</div>
+      <div class="edu-yr">Mar. — Jun. 2026</div>
+      <div class="edu-deg">Bootcamp Java Full Stack Jr.</div>
+      <div class="edu-sch">Generation México</div>
+      <span class="edu-badge active">En curso</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-ico">✍️</div>
+      <div class="edu-yr">2024</div>
+      <div class="edu-deg">UX Writing: diseño de contenido y experiencia de usuario</div>
+      <div class="edu-sch">Udemy</div>
+      <span class="edu-badge done">Completado</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-ico">🔍</div>
+      <div class="edu-yr">2019</div>
+      <div class="edu-deg">SEO — Posicionamiento Orgánico en Google</div>
+      <div class="edu-sch">Secretaría del Trabajo y Previsión Social</div>
+      <span class="edu-badge done">Completado</span>
+    </div>
+    <div class="edu-card" style="opacity:0.4;border-style:dashed;">
+      <div class="edu-ico">➕</div>
+      <div class="edu-yr">—</div>
+      <div class="edu-deg">Próximas certificaciones</div>
+      <div class="edu-sch">En progreso...</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Edwin Mendoza</div>
+  <p class="f-copy">© 2026 · Hecho con estrategia & código</p>
+  <div class="f-soc">
+    <a href="mailto:alejandro.trabajo@live.com.mx"><i class="bi bi-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/Edwin-Mendoza" target="_blank"><i class="bi bi-github"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="global.js"></script>
+</body>
+</html>
