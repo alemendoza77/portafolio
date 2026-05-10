@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proyectos — Edwin Mendoza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="global.css"/>
+  <style>
+    #proyectos { padding: 140px 56px 100px; background: linear-gradient(180deg,transparent,rgba(62,207,178,0.02),transparent); }
+ 
+    /* ── TABS ── */
+    .proj-tabs {
+      display: flex; gap: 4px; background: rgba(240,236,228,0.05);
+      border: 1px solid var(--border-soft); border-radius: 50px;
+      padding: 4px; width: fit-content; margin: 48px 0 40px;
+    }
+    .proj-tab {
+      padding: 12px 28px; border-radius: 40px; font-weight: 700;
+      font-size: 0.82rem; letter-spacing: 0.05em; cursor: pointer;
+      border: none; background: transparent; color: rgba(240,236,228,0.45);
+      display: flex; align-items: center; gap: 8px; transition: background 0.25s, color 0.25s;
+    }
+    .proj-tab i { font-size: 0.95rem; }
+    .proj-tab.active { background: var(--gold); color: var(--ink); }
+    .proj-tab:not(.active):hover { color: var(--cream); background: rgba(240,236,228,0.06); }
+ 
+    /* ── PANELS ── */
+    .proj-panel { display: none; animation: panelIn 0.4s ease; }
+    .proj-panel.active { display: block; }
+    @keyframes panelIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+ 
+    .panel-header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border-soft); }
+    .panel-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; }
+    .panel-sub   { font-size: 0.82rem; color: var(--mid); margin-top: 4px; }
+ 
+    /* ── SUBSECTIONS ── */
+    .proj-subsection { margin-bottom: 40px; }
+    .subsec-label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid);
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .subsec-label::after { content: ''; flex: 1; height: 1px; background: var(--border-soft); }
+ 
+    /* ── PROJECT CARDS ── */
+    .proj-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px; }
+ 
+    .proj-card {
+      background: rgba(240,236,228,0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 28px 24px;
+      cursor: pointer; position: relative;
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    }
+    .proj-card:hover { border-color: var(--border); transform: translateY(-4px); background: rgba(232,184,75,0.04); }
+ 
+    /* Arrow indicator */
+    .proj-card-arrow {
+      position: absolute; top: 20px; right: 20px;
+      color: var(--gold); font-size: 0.95rem;
+      opacity: 0; transform: translate(-3px, 3px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .proj-card:hover .proj-card-arrow { opacity: 1; transform: translate(0,0); }
+ 
+    .proj-card-type {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .proj-card-type::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+    .proj-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; line-height: 1.3; }
+    .proj-card-desc { font-size: 0.82rem; color: rgba(240,236,228,0.5); line-height: 1.7; margin-bottom: 16px; }
+    .proj-card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+ 
+    .ptag { font-family: 'DM Mono', monospace; font-size: 0.58rem; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.06em; }
+    .ptag.teal   { background:rgba(62,207,178,0.1);  color:var(--teal);   border:1px solid rgba(62,207,178,0.2); }
+    .ptag.gold   { background:rgba(232,184,75,0.1);  color:var(--gold);   border:1px solid rgba(232,184,75,0.2); }
+    .ptag.rust   { background:rgba(232,96,60,0.1);   color:var(--rust);   border:1px solid rgba(232,96,60,0.2); }
+    .ptag.purple { background:rgba(155,111,255,0.1); color:var(--purple); border:1px solid rgba(155,111,255,0.2); }
+ 
+    /* ══════════════════════════════════════
+       MODAL MULTIFORMATO
+       ══════════════════════════════════════ */
+    #proj-modal {
+      display: none; position: fixed; inset: 0; z-index: 4000;
+      background: rgba(10,10,15,0.92); backdrop-filter: blur(20px);
+      align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #proj-modal.open { display: flex; }
+ 
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%; max-width: 860px;
+      max-height: 90vh;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      animation: modalIn 0.35s cubic-bezier(.25,.46,.45,.94);
+    }
+    @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+ 
+    /* Header */
+    .modal-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 28px 32px 20px; border-bottom: 1px solid var(--border-soft);
+      flex-shrink: 0;
+    }
+    .modal-type {
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.18em; color: var(--teal); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .modal-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
+    .modal-close {
+      background: rgba(240,236,228,0.05); border: 1px solid var(--border-soft);
+      border-radius: 50%; width: 36px; height: 36px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--mid); font-size: 1rem;
+      transition: background 0.2s, color 0.2s; margin-left: 16px; margin-top: 4px;
+    }
+    .modal-close:hover { background: rgba(232,96,60,0.1); color: var(--rust); border-color: var(--rust); }
+ 
+    /* Description strip */
+    .modal-desc-strip {
+      padding: 14px 32px; font-size: 0.88rem;
+      color: rgba(240,236,228,0.55); line-height: 1.7;
+      border-bottom: 1px solid var(--border-soft); flex-shrink: 0;
+    }
+ 
+    /* Tags strip */
+    .modal-tags-strip {
+      padding: 12px 32px; display: flex; gap: 8px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border-soft); flex-shrink: 0;
+    }
+ 
+    /* Content area — scrollable */
+    .modal-content {
+      flex: 1; overflow-y: auto; padding: 28px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .modal-content::-webkit-scrollbar { width: 4px; }
+    .modal-content::-webkit-scrollbar-track { background: transparent; }
+    .modal-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+ 
+    /* FORMAT RENDERERS */
+    /* Image */
+    .fmt-image img {
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      object-fit: contain; max-height: 480px;
+    }
+ 
+    /* PDF */
+    .fmt-pdf iframe {
+      width: 100%; height: 500px; border: none;
+      border-radius: 12px; border: 1px solid var(--border-soft);
+    }
+ 
+    /* Video embed (YouTube/Vimeo) */
+    .fmt-video .video-wrap {
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      border-radius: 12px; border: 1px solid var(--border-soft);
+    }
+    .fmt-video .video-wrap iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+    }
+ 
+    /* Link card */
+    .fmt-link a {
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(240,236,228,0.04); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 20px 24px; text-decoration: none;
+      color: var(--cream); transition: border-color 0.2s, background 0.2s;
+    }
+    .fmt-link a:hover { border-color: var(--gold); background: rgba(232,184,75,0.04); color: var(--gold); }
+    .fmt-link .link-icon { font-size: 1.4rem; color: var(--gold); flex-shrink: 0; }
+    .fmt-link .link-text { font-size: 0.88rem; line-height: 1.5; }
+    .fmt-link .link-url  { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--mid); margin-top: 4px; }
+ 
+    /* Text / excerpt */
+    .fmt-text {
+      font-size: 0.9rem; color: rgba(240,236,228,0.7); line-height: 1.85;
+      background: rgba(240,236,228,0.03); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 20px 24px;
+    }
+ 
+    /* Empty state */
+    .fmt-empty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 12px; padding: 60px 24px;
+      border: 1.5px dashed rgba(240,236,228,0.1); border-radius: 16px;
+      text-align: center;
+    }
+    .fmt-empty i { font-size: 2.4rem; color: rgba(240,236,228,0.1); }
+    .fmt-empty p { font-size: 0.82rem; color: var(--mid); max-width: 280px; line-height: 1.6; }
+ 
+    @media(max-width:992px) {
+      #proyectos { padding: 110px 24px 70px; }
+      .proj-tabs { flex-wrap: wrap; border-radius: 14px; }
+      .proj-tab  { flex: 1; justify-content: center; border-radius: 10px; }
+      .modal-box { max-height: 95vh; border-radius: 16px; }
+      .modal-header { padding: 20px 20px 16px; }
+      .modal-content { padding: 20px; }
+      .modal-desc-strip, .modal-tags-strip { padding: 12px 20px; }
+    }
+    @media(max-width:576px) {
+      .proj-cards { grid-template-columns: 1fr; }
+      #proj-modal { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+ 
+<div id="cur"></div>
+<div id="cur-r"></div>
+ 
+<nav id="nav">
+  <a href="index.html" class="n-logo"><div class="n-logo-dot"></div>Edwin Mendoza</a>
+  <ul class="n-links">
+    <li><a href="about.html">Perfil</a></li>
+    <li><a href="experiencia.html">Experiencia</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="formacion.html">Formación</a></li>
+    <li><a href="contacto.html" class="n-cta">Contacto</a></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+<div id="mmenu">
+  <a href="about.html"       onclick="closeM()">Perfil</a>
+  <a href="experiencia.html" onclick="closeM()">Experiencia</a>
+  <a href="skills.html"      onclick="closeM()">Skills</a>
+  <a href="proyectos.html"   onclick="closeM()">Proyectos</a>
+  <a href="formacion.html"   onclick="closeM()">Formación</a>
+  <a href="contacto.html"    onclick="closeM()">Contacto</a>
+</div>
+ 
+<!-- ══ MODAL MULTIFORMATO ══ -->
+<div id="proj-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-type"  id="m-type"></div>
+        <div class="modal-title" id="m-title"></div>
+      </div>
+      <div class="modal-close" onclick="closeModal()"><i class="bi bi-x-lg"></i></div>
+    </div>
+    <div class="modal-desc-strip" id="m-desc"></div>
+    <div class="modal-tags-strip" id="m-tags"></div>
+    <div class="modal-content"   id="m-content"></div>
+  </div>
+</div>
+ 
+<!-- ══ MAIN SECTION ══ -->
+<section id="proyectos">
+  <p class="s-tag reveal">// 04 — Portfolio</p>
+  <h2 class="s-title reveal">Mis <span class="em">Proyectos</span></h2>
+  <div class="divl reveal"></div>
+  <p class="reveal" style="color:var(--mid);font-size:0.9rem;max-width:500px;margin-bottom:0;">
+    Haz clic en cualquier tarjeta para explorar el proyecto en detalle.
+  </p>
+ 
+  <div class="proj-tabs">
+    <button class="proj-tab active"        onclick="switchTab('dev',this)"><i class="bi bi-braces-asterisk"></i> Programación</button>
+    <button class="proj-tab"        onclick="switchTab('periodismo',this)"><i class="bi bi-newspaper"></i> Periodismo</button>
+    <button class="proj-tab"        onclick="switchTab('marketing',this)"><i class="bi bi-megaphone-fill"></i> Marketing</button>
+  </div>     
+ 
+  <!-- ══ PANEL: PERIODISMO ══ -->
+  <div class="proj-panel" id="panel-periodismo">
+    <div class="panel-header">
+      <div class="panel-title">Periodismo & Contenido</div>
+      <div class="panel-sub">Entrevistas, reportajes, cobertura de eventos y redacción editorial</div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-mic-fill" style="color:var(--gold)"></i> Entrevistas</div>
+      <div class="proj-cards">
+        <!--
+          data-type    = etiqueta que aparece arriba del título en el modal
+          data-title   = título del modal
+          data-desc    = descripción larga del modal
+          data-tags    = tags separados por | con formato "texto:clase"
+          data-format  = "image" | "pdf" | "video" | "link" | "text" | "empty"
+          data-src     = URL del recurso (imagen, PDF, video embed, link)
+          data-caption = texto extra (para fmt-text o pie de imagen)
+        -->
+        <div class="proj-card"
+          data-type="Entrevista"
+          data-title="Entrevista con figura del sector privado"
+          data-desc="Cobertura para Revista Mejores Empleos. Conversación con directivos del sector emprendedor, finanzas y academia sobre el panorama laboral en México."
+          data-tags="Revista:gold|Editorial:teal|Finanzas:purple"
+          data-format="pdf"
+          data-src="\archivos\Documento0.pdf"
+          data-caption="Añade aquí el PDF o imagen de la entrevista publicada."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Entrevista</div>
+          <div class="proj-card-name">Entrevista al monero Antonio Helguera</div>
+          <div class="proj-card-desc">Entrevista para la Revista Mejores Empleos.</div>
+          <div class="proj-card-tags"><span class="ptag gold">Revista</span><span class="ptag teal">Editorial</span></div>
+        </div>
+ 
+        <!-- Plantilla para añadir más entrevistas: duplica este bloque y llena los data-* -->
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-file-earmark-text-fill" style="color:var(--teal)"></i> Reportajes & Artículos</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Reportaje"
+          data-title="Cobertura de eventos de emprendimiento"
+          data-desc="Reporteo en terreno de eventos de emprendimiento, política y finanzas para medios especializados. Incluye entrevistas en campo, toma de declaraciones y edición de contenido para publicación."
+          data-tags="Emprendimiento:teal|Finanzas:gold|Política:purple"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí el artículo, PDF o galería del reportaje."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Reportaje</div>
+          <div class="proj-card-name">Cobertura de eventos de emprendimiento</div>
+          <div class="proj-card-desc">Reporteo en terreno de eventos de emprendimiento, política y finanzas.</div>
+          <div class="proj-card-tags"><span class="ptag teal">Emprendimiento</span><span class="ptag gold">Finanzas</span></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-search" style="color:var(--purple)"></i> Redacción SEO</div>
+      <div class="proj-cards">
+        <!-- Añade tus artículos SEO aquí siguiendo la misma estructura de data-* -->
+        <div class="proj-card"
+          data-type="Artículo SEO"
+          data-title="Ejemplo — Artículo SEO optimizado"
+          data-desc="Ejemplo de cómo se verá un artículo de redacción SEO en el modal. Reemplaza este bloque con tu contenido real."
+          data-tags="SEO:gold|Blog:teal|UX Writing:purple"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí el link o PDF del artículo SEO."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Artículo SEO</div>
+          <div class="proj-card-name">Artículo SEO optimizado</div>
+          <div class="proj-card-desc">Redacción con enfoque SEO, UX Writing e IA para mejorar posicionamiento orgánico.</div>
+          <div class="proj-card-tags"><span class="ptag gold">SEO</span><span class="ptag purple">UX Writing</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ══ PANEL: MARKETING ══ -->
+  <div class="proj-panel" id="panel-marketing">
+    <div class="panel-header">
+      <div class="panel-title">Marketing & Estrategia Digital</div>
+      <div class="panel-sub">Campañas, estrategias de contenido, social media y automatización con IA</div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-megaphone-fill" style="color:var(--rust)"></i> Campañas BTL / ATL</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Campaña 360°"
+          data-title="Estrategia LATAM — Ofertia!"
+          data-desc="Liderazgo de estrategia de contenido y redes sociales para 7+ países durante 7 años. Coordinación de equipos multidisciplinarios, implementación de herramientas de IA y gestión directa con clientes para campañas publicitarias de alto impacto."
+          data-tags="BTL/ATL:rust|LATAM:gold|IA:teal|Redes Sociales:purple"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí capturas, métricas o el deck de la campaña."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Campaña 360°</div>
+          <div class="proj-card-name">Estrategia LATAM — Ofertia!</div>
+          <div class="proj-card-desc">7 años liderando contenido y redes sociales para 7+ países en LATAM.</div>
+          <div class="proj-card-tags"><span class="ptag rust">BTL/ATL</span><span class="ptag gold">LATAM</span><span class="ptag teal">IA</span></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-diagram-3-fill" style="color:var(--gold)"></i> Content Strategy</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Estrategia de Contenido"
+          data-title="Personal Branding — Sleipnir Marketing"
+          data-desc="Definición de línea editorial y pilares de comunicación para clientes de diversas industrias en Sleipnir Marketing. Creación de parrillas de contenido con enfoque 360° y redacción de copys de alto impacto para redes y email."
+          data-tags="Branding:gold|Multicanal:purple|Email:teal"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí ejemplos de parrillas, copys o resultados de campaña."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Estrategia de Contenido</div>
+          <div class="proj-card-name">Personal Branding — Sleipnir</div>
+          <div class="proj-card-desc">Definición de línea editorial y pilares de comunicación para clientes de diversas industrias.</div>
+          <div class="proj-card-tags"><span class="ptag gold">Branding</span><span class="ptag purple">Multicanal</span></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-cpu-fill" style="color:var(--purple)"></i> IA & Automatización en Marketing</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="IA & Automatización"
+          data-title="Workflows de IA — Sioux Digital"
+          data-desc="Implementación de flujos de trabajo automatizados con IA para la producción de contenido audiovisual, redacción de blogs, y coordinación de campañas en Sioux Digital. Uso de ChatGPT, Gemini y Opus Clip."
+          data-tags="IA:purple|Automatización:teal|Sioux:gold"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí capturas de tus workflows, demos o resultados de automatización."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">IA & Automatización</div>
+          <div class="proj-card-name">Workflows de IA — Sioux Digital</div>
+          <div class="proj-card-desc">Automatización de producción de contenido con ChatGPT, Gemini y Opus Clip.</div>
+          <div class="proj-card-tags"><span class="ptag purple">IA</span><span class="ptag teal">Automatización</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ 
+  <!-- ══ PANEL: PROGRAMACIÓN ══ -->
+  <div class="proj-panel active" id="panel-dev">
+    <div class="panel-header">
+      <div class="panel-title">Programación & Desarrollo</div>
+      <div class="panel-sub">Proyectos Full Stack, APIs, Frontend y aplicaciones web</div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-layers-fill" style="color:var(--teal)"></i> Full Stack</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Proyecto Personal"
+          data-title="Pre-Alfa News"
+          data-desc="Plataforma informativa sobre videojuegos y cultura pop fundada en 2018. Crecimiento 100% orgánico utilizando WordPress. Gestión editorial, SEO técnico, Google Analytics y monetización digital desde cero."
+          data-tags="WordPress:teal|SEO:gold|Analytics:purple|Fundado 2018:rust"
+          data-format="link"
+          data-src="https://prealfanews.com/"
+          data-caption="Pre-Alfa News — Plataforma informativa de videojuegos y cultura pop"
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Proyecto Personal</div>
+          <div class="proj-card-name">Pre-Alfa News</div>
+          <div class="proj-card-desc">Plataforma informativa sobre videojuegos y cultura pop. Crecimiento 100% orgánico con WordPress y HTML desde 2018</div>
+          <div class="proj-card-tags"><span class="ptag teal">WordPress</span><span class="ptag gold">SEO</span><span class="ptag teal">HTML/CSS</span><span class="ptag grey github">GitHub</span> <span class="ptag purple">Analytics</span></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-braces" style="color:var(--gold)"></i> Full Stack</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Full Stack"
+          data-title="Conversor de temperatura"
+          data-desc="¡Bienvenido al Templo del Fuego! Este proyecto es un conversor de temperatura temático inspirado en la serie Avatar: El último maestro del aire. Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real."
+          data-tags="HTML:gold|Javascript:teal|CSS:purple|GitHub:rust"
+          data-format="link"
+          data-src="https://alemendoza77.github.io/logica-programacion-2/"
+          data-caption="Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Full Stack</div>
+          <div class="proj-card-name">Conversor de Temperatura</div>
+          <div class="proj-card-desc">Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real.</div>
+          <div class="proj-card-tags"><span class="ptag teal">HTML/CSS</span><span class="ptag gold">JS</span><span class="ptag teal">Spring Boot</span><span class="ptag teal silver">Git / GitHub</span><span class="ptag purple">Bootstrap</span></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="proj-subsection">
+      <div class="subsec-label"><i class="bi bi-window-stack" style="color:var(--purple)"></i> Frontend / React</div>
+      <div class="proj-cards">
+        <div class="proj-card"
+          data-type="Frontend"
+          data-title="Portafolio Personal"
+          data-desc="Este mismo portafolio. Construido con HTML, CSS, JavaScript y Bootstrap. Diseño personalizado, modo admin, modales multiformato y navegación entre páginas sin frameworks."
+          data-tags="HTML/CSS:teal|JavaScript:gold|Bootstrap:purple"
+          data-format="empty"
+          data-src=""
+          data-caption="Añade aquí el link al repositorio en GitHub u otros proyectos de frontend."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Frontend</div>
+          <div class="proj-card-name">Portafolio Personal</div>
+          <div class="proj-card-desc">Construido con HTML, CSS, Bootstrap y JavaScript. Diseño custom sin frameworks.</div>
+          <div class="proj-card-tags"><span class="ptag teal">HTML/CSS</span><span class="ptag gold">JS</span><span class="ptag gold">Java</span><span class="ptag purple">Bootstrap</span><span class="ptag purple">REST API</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <div class="f-logo">Edwin Mendoza</div>
+  <p class="f-copy">© 2026 · Hecho con estrategia & código</p>
+  <div class="f-soc">
+    <a href="mailto:alejandro.trabajo@live.com.mx"><i class="bi bi-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/Edwin-Mendoza" target="_blank"><i class="bi bi-github"></i></a>
+  </div>
+</footer>
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="global.js"></script>
+<script>
+  /* ── TABS ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+    const panel = document.getElementById('panel-' + id);
+    panel.classList.add('active');
+    btn.classList.add('active');
+    // Revelar todas las tarjetas del panel al activarlo,
+    // por si el IntersectionObserver ya las soltó cuando estaban ocultas
+    panel.querySelectorAll('.reveal, .proj-card, .exp-card, .sk-card, .edu-card').forEach(el => {
+      el.classList.add('v');
+    });
+  }
+ 
+  /* ══════════════════════════════════════
+     MODAL MULTIFORMATO
+     ══════════════════════════════════════
+ 
+     Para añadir contenido a una tarjeta, edita sus atributos data-*:
+ 
+     data-format="image"   → data-src="URL o ruta a la imagen"
+     data-format="pdf"     → data-src="URL al PDF (Google Drive, Dropbox, etc.)"
+     data-format="video"   → data-src="URL embed de YouTube o Vimeo"
+                              YouTube embed: https://www.youtube.com/embed/VIDEO_ID
+                              Vimeo embed:   https://player.vimeo.com/video/VIDEO_ID
+     data-format="link"    → data-src="https://url-del-sitio.com"
+                              data-caption="Texto descriptivo del link"
+     data-format="text"    → data-caption="El texto completo que quieres mostrar"
+     data-format="empty"   → muestra un placeholder hasta que añadas contenido
+  ══════════════════════════════════════ */
+ 
+  function openModal(card) {
+    const type    = card.dataset.type    || '';
+    const title   = card.dataset.title   || '';
+    const desc    = card.dataset.desc    || '';
+    const tagsRaw = card.dataset.tags    || '';
+    const format  = card.dataset.format  || 'empty';
+    const src     = card.dataset.src     || '';
+    const caption = card.dataset.caption || '';
+ 
+    // Fill header
+    document.getElementById('m-type').textContent  = type;
+    document.getElementById('m-title').textContent = title;
+    document.getElementById('m-desc').textContent  = desc;
+ 
+    // Fill tags
+    const tagsEl = document.getElementById('m-tags');
+    tagsEl.innerHTML = '';
+    if (tagsRaw) {
+      tagsRaw.split('|').forEach(t => {
+        const [label, cls] = t.split(':');
+        const span = document.createElement('span');
+        span.className = 'ptag ' + (cls || 'gold');
+        span.textContent = label;
+        tagsEl.appendChild(span);
+      });
+    }
+ 
+    // Render content by format
+    const contentEl = document.getElementById('m-content');
+    contentEl.innerHTML = '';
+ 
+    let html = '';
+    switch(format) {
+      case 'image':
+        html = `<div class="fmt-image"><img src="${src}" alt="${title}" loading="lazy"/></div>`;
+        if (caption) html += `<p style="font-size:0.78rem;color:var(--mid);text-align:center;">${caption}</p>`;
+        break;
+ 
+      case 'pdf':
+        html = `<div class="fmt-pdf">
+          <iframe src="${src}" title="${title}"></iframe>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mid);text-align:center;">
+          Si el PDF no carga, <a href="${src}" target="_blank" style="color:var(--gold)">ábrelo aquí ↗</a>
+        </p>`;
+        break;
+ 
+      case 'video':
+        html = `<div class="fmt-video">
+          <div class="video-wrap">
+            <iframe src="${src}" title="${title}" allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+            </iframe>
+          </div>
+        </div>`;
+        if (caption) html += `<p style="font-size:0.78rem;color:var(--mid);text-align:center;">${caption}</p>`;
+        break;
+ 
+      case 'link':
+        html = `<div class="fmt-link">
+          <a href="${src}" target="_blank" rel="noopener">
+            <div class="link-icon"><i class="bi bi-box-arrow-up-right"></i></div>
+            <div>
+              <div class="link-text">${caption || title}</div>
+              <div class="link-url">${src}</div>
+            </div>
+          </a>
+        </div>`;
+        break;
+ 
+      case 'text':
+        html = `<div class="fmt-text">${caption}</div>`;
+        break;
+ 
+      case 'empty':
+      default:
+        html = `<div class="fmt-empty">
+          <i class="bi bi-folder2-open"></i>
+          <p>${caption || 'Contenido próximamente. Edita el atributo <code>data-format</code> y <code>data-src</code> de esta tarjeta para añadir tu material.'}</p>
+        </div>`;
+        break;
+    }
+ 
+    contentEl.innerHTML = html;
+    document.getElementById('proj-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+/*
+  function closeModal() {
+    const modal = document.getElementById('proj-modal');
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    // Limpiar iframes al cerrar para detener reproducción
+    document.getElementById('m-content').innerHTML = '';
+  }*/
+ 
+  // Cerrar con clic fuera o tecla Escape
+  document.getElementById('proj-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('proj-modal')) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>

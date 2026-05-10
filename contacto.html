@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto — Edwin Mendoza</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="stylesheet" href="global.css"/>
+  <style>
+    #contacto {
+      padding: 140px 56px 100px;
+      position: relative; overflow: hidden;
+    }
+    #contacto::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg,transparent,var(--gold),var(--teal),transparent);
+    }
+    .contact-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(232,184,75,0.07),transparent 60%);
+      left: 50%; top: 50%; transform: translate(-50%,-50%); pointer-events: none;
+    }
+    .contact-g {
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 80px; align-items: start; position: relative; z-index: 1;
+    }
+    .contact-h {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2.4rem,5vw,4rem); letter-spacing: -0.03em;
+      line-height: 1.05; margin-bottom: 20px;
+    }
+    .contact-h .em { color: var(--gold); }
+    .contact-p { font-size: 0.95rem; color: rgba(240,236,228,0.55); line-height: 1.8; margin-bottom: 36px; }
+
+    .c-links { display: flex; flex-direction: column; }
+    .c-link {
+      display: flex; align-items: center; gap: 16px;
+      color: var(--cream); text-decoration: none; font-size: 0.9rem;
+      padding: 16px 0; border-bottom: 1px solid var(--border-soft);
+      transition: color 0.2s, padding-left 0.25s;
+    }
+    .c-link:hover { color: var(--gold); padding-left: 10px; }
+    .c-link-ico {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(232,184,75,0.08); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: 0.9rem; flex-shrink: 0;
+    }
+
+    .c-form { display: flex; flex-direction: column; gap: 14px; }
+    .c-field {
+      background: rgba(240,236,228,0.04); border: 1px solid var(--border-soft);
+      color: var(--cream); padding: 14px 18px;
+      font-family: 'Syne', sans-serif; font-size: 0.9rem;
+      border-radius: 10px; outline: none;
+      transition: border-color 0.2s; width: 100%;
+    }
+    .c-field::placeholder { color: var(--mid); }
+    .c-field:focus { border-color: var(--gold); background: rgba(232,184,75,0.04); }
+    textarea.c-field { resize: vertical; min-height: 130px; }
+
+    .c-btn {
+      background: var(--gold); color: var(--ink); border: none;
+      padding: 15px 32px; font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 0.85rem; letter-spacing: 0.04em;
+      border-radius: 40px; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .c-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(232,184,75,0.3); }
+
+    @media(max-width:992px) {
+      #contacto { padding: 110px 24px 70px; }
+      .contact-g { grid-template-columns: 1fr; gap: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav id="nav">
+  <a href="index.html" class="n-logo"><div class="n-logo-dot"></div>Edwin Mendoza</a>
+  <ul class="n-links">
+    <li><a href="about.html">Perfil</a></li>
+    <li><a href="experiencia.html">Experiencia</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="formacion.html">Formación</a></li>
+    <li><a href="contacto.html" class="n-cta">Contacto</a></li>
+  </ul>
+  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+</nav>
+<div id="mmenu">
+  <a href="about.html"       onclick="closeM()">Perfil</a>
+  <a href="experiencia.html" onclick="closeM()">Experiencia</a>
+  <a href="skills.html"      onclick="closeM()">Skills</a>
+  <a href="proyectos.html"   onclick="closeM()">Proyectos</a>
+  <a href="formacion.html"   onclick="closeM()">Formación</a>
+  <a href="contacto.html"    onclick="closeM()">Contacto</a>
+</div>
+
+<section id="contacto">
+  <div class="contact-glow"></div>
+  <div class="contact-g">
+    <div>
+      <p class="s-tag reveal">// 06 — Contacto</p>
+      <h2 class="contact-h reveal">¿Construimos<br/>algo <span class="em">juntos?</span></h2>
+      <p class="contact-p reveal">Busco mi próxima oportunidad donde el código limpio, la estrategia digital y la innovación tengan lugar. Si tienes un proyecto o posición, hablemos.</p>
+      <div class="c-links reveal">
+        <a href="tel:+525551554667" class="c-link">
+          <div class="c-link-ico"><i class="bi bi-telephone-fill"></i></div>
+          +52 55 5155 4667
+        </a>
+        <a href="mailto:alejandro.trabajo@live.com.mx" class="c-link">
+          <div class="c-link-ico"><i class="bi bi-envelope-fill"></i></div>
+          alejandro.trabajo@live.com.mx
+        </a>
+        <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank" class="c-link">
+          <div class="c-link-ico"><i class="bi bi-linkedin"></i></div>
+          Edwin Mendoza · LinkedIn
+        </a>
+        <a href="https://github.com/Edwin-Mendoza" target="_blank" class="c-link">
+          <div class="c-link-ico"><i class="bi bi-github"></i></div>
+          Edwin Mendoza · GitHub
+        </a>
+        <a class="c-link" style="cursor:default;">
+          <div class="c-link-ico"><i class="bi bi-geo-alt-fill"></i></div>
+          Venustiano Carranza, CDMX · Dispuesto a reubicación
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <form class="c-form" onsubmit="handleForm(event)">
+        <input  type="text"  class="c-field" placeholder="Tu nombre"   required/>
+        <input  type="email" class="c-field" placeholder="Tu email"    required/>
+        <input  type="text"  class="c-field" placeholder="Asunto"/>
+        <textarea            class="c-field" placeholder="Tu mensaje..."></textarea>
+        <button type="submit" class="c-btn">Enviar mensaje →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Edwin Mendoza</div>
+  <p class="f-copy">© 2026 · Hecho con estrategia & código</p>
+  <div class="f-soc">
+    <a href="mailto:alejandro.trabajo@live.com.mx"><i class="bi bi-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/Edwin-Mendoza" target="_blank"><i class="bi bi-github"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="global.js"></script>
+<script>
+function handleForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.c-btn');
+  btn.textContent = '✓ ¡Mensaje enviado!';
+  btn.style.background = '#3ecfb2';
+  setTimeout(() => { btn.textContent = 'Enviar mensaje →'; btn.style.background = ''; }, 3000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+/* ═══════════════════════════════════════
+   GLOBAL.CSS — Variables, reset, cursor,
+   navbar, mobile menu, footer, responsive
+   ═══════════════════════════════════════ */
+
+:root {
+  --ink: #0a0a0f;
+  --surface: #111118;
+  --gold: #e8b84b;
+  --gold-dim: rgba(232,184,75,0.15);
+  --teal: #3ecfb2;
+  --rust: #e8603c;
+  --purple: #9b6fff;
+  --cream: #f0ece4;
+  --mid: #6a6a80;
+  --border: rgba(232,184,75,0.18);
+  --border-soft: rgba(240,236,228,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── NOISE OVERLAY ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  opacity: 0.025; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── CUSTOM CURSOR ── */
+#cur {
+  width: 10px; height: 10px;
+  background: var(--gold); border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+#cur-r {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--gold); border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(.25,.46,.45,.94),
+              height 0.3s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* ── NAVBAR ── */
+#nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  padding: 20px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all 0.4s;
+}
+#nav.sc {
+  background: rgba(10,10,15,0.92);
+  backdrop-filter: blur(20px);
+  padding: 14px 56px;
+  border-bottom: 1px solid var(--border);
+}
+
+.n-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem;
+  color: var(--gold); text-decoration: none; letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 10px;
+}
+.n-logo-dot {
+  width: 8px; height: 8px;
+  background: var(--teal); border-radius: 50%;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.n-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.n-links a {
+  color: var(--cream); text-decoration: none;
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.55; transition: opacity 0.2s, color 0.2s;
+}
+.n-links a:hover { opacity: 1; color: var(--gold); }
+.n-links a.active { opacity: 1; color: var(--gold); }
+
+.n-cta {
+  background: var(--gold) !important; color: var(--ink) !important;
+  padding: 9px 22px !important; border-radius: 40px !important;
+  opacity: 1 !important; font-weight: 800 !important;
+  transition: transform 0.2s, background 0.2s !important;
+}
+.n-cta:hover { transform: scale(1.05); background: var(--cream) !important; }
+
+/* ── HAMBURGER ── */
+.ham { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1100; }
+.ham span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.ham.on span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham.on span:nth-child(2) { opacity: 0; }
+.ham.on span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE MENU ── */
+#mmenu {
+  display: none; position: fixed; inset: 0; z-index: 1050;
+  background: rgba(10,10,15,0.97); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+}
+#mmenu.on { display: flex; }
+#mmenu a {
+  font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+  color: var(--cream); text-decoration: none; transition: color 0.2s;
+}
+#mmenu a:hover { color: var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 56px;
+  border-top: 1px solid var(--border-soft);
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
+}
+.f-logo { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--gold); font-size: 1rem; }
+.f-copy { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--mid); }
+.f-soc { display: flex; gap: 16px; }
+.f-soc a { color: var(--mid); font-size: 1rem; transition: color 0.2s; text-decoration: none; }
+.f-soc a:hover { color: var(--gold); }
+
+/* ── SECTION COMMONS ── */
+section { position: relative; z-index: 1; }
+.s-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--teal); text-transform: uppercase; margin-bottom: 10px; }
+.s-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem,5vw,3.8rem); letter-spacing: -0.03em; line-height: 1.05; }
+.s-title .em  { color: var(--gold); }
+.s-title .em2 { color: var(--teal); }
+.divl { width: 40px; height: 3px; background: linear-gradient(90deg,var(--gold),var(--teal)); border-radius: 2px; margin: 20px 0 36px; }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s cubic-bezier(.25,.46,.45,.94), transform 0.65s cubic-bezier(.25,.46,.45,.94); }
+.reveal.v { opacity: 1; transform: translateY(0); }
+
+/* ── MARQUEE ── */
+.marquee-wrap { border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 13px 0; overflow: hidden; background: rgba(232,184,75,0.03); }
+.marquee-track { display: flex; white-space: nowrap; animation: marquee 25s linear infinite; }
+.m-item { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--mid); text-transform: uppercase; padding: 0 30px; }
+.m-item.accent { color: var(--gold); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── RESPONSIVE ── */
+@media(max-width:992px) {
+  #nav { padding: 16px 24px; }
+  #nav.sc { padding: 12px 24px; }
+  .n-links { display: none; }
+  .ham { display: flex; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+.exp-logo-zone.has-img img {
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Para que el logo no se deforme */
+    opacity: 1 !important;
+}
+
+/* Oculta el texto de "Subir logo" si ya hay una imagen cargada desde el código */
+.exp-logo-zone.has-img::after {
+    display: none;
+}
