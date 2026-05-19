@@ -267,7 +267,7 @@
  
   <div class="proj-tabs">
     <button class="proj-tab active"        onclick="switchTab('dev',this)"><i class="bi bi-braces-asterisk"></i> Programación</button>
-    <button class="proj-tab"        onclick="switchTab('periodismo',this)"><i class="bi bi-newspaper"></i> Periodismo</button>
+    <button class="proj-tab"        onclick="switchTab('periodismo',this)"><i class="bi bi-newspaper"></i> Comunicación y Periodismo</button>
     <button class="proj-tab"        onclick="switchTab('marketing',this)"><i class="bi bi-megaphone-fill"></i> Marketing</button>
   </div>     
  
@@ -279,34 +279,41 @@
     </div>
  
     <div class="proj-subsection">
-      <div class="subsec-label"><i class="bi bi-mic-fill" style="color:var(--gold)"></i> Entrevistas</div>
+      <div class="subsec-label"><i class="bi bi-mic-fill" style="color:var(--gold)"></i> Contenido </div>
       <div class="proj-cards">
-        <!--
-          data-type    = etiqueta que aparece arriba del título en el modal
-          data-title   = título del modal
-          data-desc    = descripción larga del modal
-          data-tags    = tags separados por | con formato "texto:clase"
-          data-format  = "image" | "pdf" | "video" | "link" | "text" | "empty"
-          data-src     = URL del recurso (imagen, PDF, video embed, link)
-          data-caption = texto extra (para fmt-text o pie de imagen)
-        -->
+        
         <div class="proj-card"
           data-type="Entrevista"
           data-title="Entrevista con figura del sector privado"
-          data-desc="Cobertura para Revista Mejores Empleos. Conversación con directivos del sector emprendedor, finanzas y academia sobre el panorama laboral en México."
+          data-desc="Entrevista con el monero Antonio Helguera."
           data-tags="Revista:gold|Editorial:teal|Finanzas:purple"
           data-format="pdf"
           data-src="\archivos\Documento0.pdf"
-          data-caption="Añade aquí el PDF o imagen de la entrevista publicada."
+          data-caption="\archivos\Documento0.pdf"
           onclick="openModal(this)">
           <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
           <div class="proj-card-type">Entrevista</div>
           <div class="proj-card-name">Entrevista al monero Antonio Helguera</div>
           <div class="proj-card-desc">Entrevista para la Revista Mejores Empleos.</div>
-          <div class="proj-card-tags"><span class="ptag gold">Revista</span><span class="ptag teal">Editorial</span></div>
+          <div class="proj-card-tags"><span class="ptag purple">Redacción</span><span class="ptag gold">Revista</span><span class="ptag teal">Editorial</span></div>
         </div>
- 
-        <!-- Plantilla para añadir más entrevistas: duplica este bloque y llena los data-* -->
+
+          <div class="proj-card"
+          data-type="Entrevista"
+          data-title="Título del Segundo Proyecto"
+          data-desc="Infografía para las redes sociales de AIG México. "
+          data-tags="Revista:gold|Estrategia:purple|Contenido:teal"
+          data-format="image"
+          data-src="\archivos\infografía.jpg"
+          data-caption="\archivos\infografía.jpg"
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Infografía</div>
+          <div class="proj-card-name">Infografía Tips AIG</div>
+          <div class="proj-card-desc">Infografía para las redes sociales de AIG México. </div>
+          <div class="proj-card-tags"><span class="ptag gold">Revista</span><span class="ptag purple">Estrategia</span></div><span class="ptag teal">Redes Sociales</span>
+
+        </div> 
       </div>
     </div>
  
@@ -316,7 +323,7 @@
         <div class="proj-card"
           data-type="Reportaje"
           data-title="Cobertura de eventos de emprendimiento"
-          data-desc="Reporteo en terreno de eventos de emprendimiento, política y finanzas para medios especializados. Incluye entrevistas en campo, toma de declaraciones y edición de contenido para publicación."
+          data-desc="Reporteo en terreno de eventos de emprendimiento, política y finanzas para medios especializados. Incluye interviews en campo, toma de declaraciones y edición de contenido para publicación."
           data-tags="Emprendimiento:teal|Finanzas:gold|Política:purple"
           data-format="empty"
           data-src=""
@@ -334,7 +341,6 @@
     <div class="proj-subsection">
       <div class="subsec-label"><i class="bi bi-search" style="color:var(--purple)"></i> Redacción SEO</div>
       <div class="proj-cards">
-        <!-- Añade tus artículos SEO aquí siguiendo la misma estructura de data-* -->
         <div class="proj-card"
           data-type="Artículo SEO"
           data-title="Ejemplo — Artículo SEO optimizado"
@@ -352,10 +358,7 @@
         </div>
       </div>
     </div>
-  </div>
- 
-  <!-- ══ PANEL: MARKETING ══ -->
-  <div class="proj-panel" id="panel-marketing">
+  </div> <div class="proj-panel" id="panel-marketing">
     <div class="panel-header">
       <div class="panel-title">Marketing & Estrategia Digital</div>
       <div class="panel-sub">Campañas, estrategias de contenido, social media y automatización con IA</div>
@@ -423,16 +426,12 @@
         </div>
       </div>
     </div>
-  </div>
- 
- 
-  <!-- ══ PANEL: PROGRAMACIÓN ══ -->
-  <div class="proj-panel active" id="panel-dev">
+  </div> <div class="proj-panel active" id="panel-dev">
     <div class="panel-header">
       <div class="panel-title">Programación & Desarrollo</div>
       <div class="panel-sub">Proyectos Full Stack, APIs, Frontend y aplicaciones web</div>
     </div>
- 
+
     <div class="proj-subsection">
       <div class="subsec-label"><i class="bi bi-layers-fill" style="color:var(--teal)"></i> Full Stack</div>
       <div class="proj-cards">
@@ -449,11 +448,31 @@
           <div class="proj-card-type">Proyecto Personal</div>
           <div class="proj-card-name">Pre-Alfa News</div>
           <div class="proj-card-desc">Plataforma informativa sobre videojuegos y cultura pop. Crecimiento 100% orgánico con WordPress y HTML desde 2018</div>
-          <div class="proj-card-tags"><span class="ptag teal">WordPress</span><span class="ptag gold">SEO</span><span class="ptag teal">HTML/CSS</span><span class="ptag grey github">GitHub</span> <span class="ptag purple">Analytics</span></div>
-        </div>
-      </div>
+          <div class="proj-card-tags">
+            <span class="ptag rust">WordPress</span><span class="ptag gold">SEO</span><span class="ptag teal">HTML/CSS</span><span class="ptag teal silver">Git / GitHub</span><span class="ptag purple">Analytics</span>
+          </div>
+        </div> 
+        
+        <div class="proj-card"
+          data-type="Full Stack"
+          data-title="Conversor de temperatura"
+          data-desc="¡Bienvenido al Templo del Fuego! Este proyecto es un conversor de temperatura temático inspirado en la serie Avatar: El último maestro del aire. Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real."
+          data-tags="HTML:gold|Javascript:teal|CSS:purple|GitHub:rust"
+          data-format="link"
+          data-src="https://alemendoza77.github.io/logica-programacion-2/"
+          data-caption="Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real."
+          onclick="openModal(this)">
+          <div class="proj-card-arrow"><i class="bi bi-arrow-up-right"></i></div>
+          <div class="proj-card-type">Full Stack</div>
+          <div class="proj-card-name">Conversor de Temperatura</div>
+          <div class="proj-card-desc">Permite a los usuarios transformar grados Celsius a Fahrenheit y Kelvin con una interfaz dinámica y validaciones en tiempo real.</div>
+          <div class="proj-card-tags">
+            <span class="ptag teal">HTML/CSS</span><span class="ptag gold">JS</span><span class="ptag rust">Spring Boot</span><span class="ptag teal silver">Git / GitHub</span><span class="ptag purple">Bootstrap</span>
+          </div>
+        </div> 
+      </div> 
     </div>
- 
+
     <div class="proj-subsection">
       <div class="subsec-label"><i class="bi bi-braces" style="color:var(--gold)"></i> Full Stack</div>
       <div class="proj-cards">
@@ -495,16 +514,23 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
+
 </section>
  
 <footer>
-  <div class="f-logo">Edwin Mendoza</div>
+  <div class="f-logo">
+    <a href="/archivos/Edwin Alejandro Mendoza Morales (1).pdf" download="CV_Edwin_Mendoza.pdf" style="color: inherit; text-decoration: none;">
+      Descarga mi CV
+    </a>
+  </div>
+
   <p class="f-copy">© 2026 · Hecho con estrategia & código</p>
+
   <div class="f-soc">
     <a href="mailto:alejandro.trabajo@live.com.mx"><i class="bi bi-envelope"></i></a>
-    <a href="https://www.linkedin.com/in/edwin-mendoza" target="_blank"><i class="bi bi-linkedin"></i></a>
-    <a href="https://github.com/Edwin-Mendoza" target="_blank"><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/edwin-mendoza-morales" target="_blank"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/alemendoza77" target="_blank"><i class="bi bi-github"></i></a>
   </div>
 </footer>
  
